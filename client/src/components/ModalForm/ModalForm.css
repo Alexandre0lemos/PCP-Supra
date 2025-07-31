@@ -1,0 +1,39 @@
+ion-modal {
+  --background: rgb(255, 255, 255);
+  --height:100vh;
+  --width:100%;
+  --flex-direction: column;
+}
+
+.modal-conexao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background: transparent;
+  z-index: 10000;
+}
+
+.modal-conexao-card {
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+}
+
+
+ion-label {
+  --widht: min-content;
+}
+
+#btn-fechar {
+  margin-bottom: .5rem;
+}
+
+#form-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+}

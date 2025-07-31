@@ -1,0 +1,6 @@
+flask
+flask_cors
+pandas
+xlrd==2.0.1
+cryptography
+flask[async]

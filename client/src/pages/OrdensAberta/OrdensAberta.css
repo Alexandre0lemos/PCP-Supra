@@ -1,0 +1,72 @@
+#content-orders {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.spinner-preto {
+  --color: black;
+}
+
+#nome-produto {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    font-weight: 100;
+}
+
+#modal {
+    --background:transparent;
+}
+
+h1 {
+    font-size: .95rem;
+}
+
+.area {
+    height: 100%;
+}
+
+#btn-abrir {
+    height: min-content;
+    background-color: transparent;
+    padding: .5rem 1rem;
+    border-left: 1px solid rgba(100, 99, 99, 0.342);
+    border-radius: 1px;
+}
+
+#arrow {
+    transition: .8s ease;
+}
+
+.arrow-activate {
+    transform: rotate(180deg);
+}
+
+#header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#ion-item {
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+}
+
+#order-section {
+    border: 1px solid rgba(100, 99, 99, 0.342);
+}
+
+.btn-lancamento {
+    height: min-content;
+    background-color: transparent;
+    padding: .5rem .77rem;
+    border: 1px solid rgba(100, 99, 99, 0.342);
+    border-radius: 1px;
+
+    &:hover {
+        filter: brightness(90%);
+    }
+}
+

@@ -1,0 +1,12 @@
+{% extends "dashboard.html" %}
+
+{% block foor %}
+<form
+  action="/atualizar_ordens_aberta"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <input type="file" name="data" id="data" />
+  <button>enviar</button>
+</form>
+{% endblock foor %}
