@@ -5,7 +5,7 @@ import {
   IonItem,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
@@ -38,24 +38,23 @@ const Login: React.FC = () => {
     }
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 2000)
+    const timeout = setTimeout(() => controller.abort(), 2000);
 
     try {
       const res = await fetch(`${api}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: username.trim(), password }),
-        signal: controller.signal
+        signal: controller.signal,
       });
-      
-      clearTimeout(timeout)
+
+      clearTimeout(timeout);
 
       const data = await res.json();
       return data;
-
     } catch (error) {
       if (error instanceof Error && error.name == "AbortError") {
-        setErroConexao(true)
+        setErroConexao(true);
       }
     }
   };
@@ -67,9 +66,9 @@ const Login: React.FC = () => {
       const dataAtual = new Date().toLocaleDateString("pt-br");
       localStorage.setItem("username", username);
       localStorage.setItem("datelogin", dataAtual);
-      localStorage.setItem("isAdmin?", resposta["isAdmin?"])
-      location.href = resposta["isAdmin?"] == 1 ? "/lancamentos" : "ordens-aberta";
-
+      localStorage.setItem("isAdmin?", resposta["isAdmin?"]);
+      location.href =
+        resposta["isAdmin?"] == 1 ? "/lancamentos" : "ordens-aberta";
     } else if (resposta?.success == false) {
       mostrarAlerta("Usuário ou senha incorreta.");
       setUsername("");
@@ -79,9 +78,15 @@ const Login: React.FC = () => {
 
   return (
     <IonPage>
-      <div className="bg-white h-full flex flex-col justify-center" color="dark">
-        <div id="container" className="h-11/12 p-5 flex flex-col justify-center">
-          <IonToolbar color="dark">
+      <div
+        className="bg-white h-full flex flex-col justify-center"
+        color="dark"
+      >
+        <div
+          id="container"
+          className="h-11/12 p-5 flex flex-col justify-center"
+        >
+          <IonToolbar className="p-5" color="dark">
             <IonTitle className="text-center p-2">Login</IonTitle>
 
             <IonItem color="dark">
@@ -127,7 +132,7 @@ const Login: React.FC = () => {
           </IonToolbar>
         </div>
 
-        <IonAlert 
+        <IonAlert
           isOpen={erroConexao}
           onDidDismiss={() => setErroConexao(false)}
           header={"Problema de conexão"}

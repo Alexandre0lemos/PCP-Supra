@@ -2,9 +2,13 @@
     display: flex;
     background-color: aqua;
 }
+div.item-native {
+    padding-left: 0;
+}
 
-
-
+ion-item, ion-title {
+    margin-left: -15px;
+}
 @media screen and (min-width: 820px) {
     #container {
         display: grid;
@@ -17,7 +21,6 @@
     ion-toolbar {
         grid-area: toolbar;
         display: flex;
-        padding: 2rem;
         border-left: 1px solid rgba(0, 0, 0, 0.226);
     }
 
