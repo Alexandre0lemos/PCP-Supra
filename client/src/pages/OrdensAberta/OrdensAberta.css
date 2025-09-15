@@ -5,7 +5,7 @@
 }
 
 .spinner-preto {
-  --color: black;
+  --color: #3b82f6;
 }
 
 #nome-produto {
@@ -15,7 +15,7 @@
 }
 
 #modal {
-    --background:transparent;
+    --background: transparent;
 }
 
 h1 {
@@ -64,9 +64,56 @@ h1 {
     padding: .5rem .77rem;
     border: 1px solid rgba(100, 99, 99, 0.342);
     border-radius: 1px;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
         filter: brightness(90%);
+        transform: translateY(-1px);
     }
+}
+
+@media (max-width: 640px) {
+    #filter-content {
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .btn-lancamento {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    #filter-content {
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .btn-lancamento {
+        width: auto;
+    }
+}
+
+.scrollable-container {
+    overflow-y: scroll;
+    height: 90dvh;
+}
+
+.bg-zinc-800 {
+    background-color: #f0f9ff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.bg-zinc-800:hover {
+    background-color: #e0f2fe;
+}
+
+.text-gray-400 {
+    color: #60a5fa;
+}
+
+.text-white {
+    color: #1e40af;
 }
 

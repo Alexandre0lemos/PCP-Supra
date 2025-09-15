@@ -1,8 +1,10 @@
 from app import app
-from flask import request, redirect, url_for, abort, jsonify, render_template, sessions, session, send_file
+from flask import request, redirect, url_for, abort, jsonify, sessions, session, send_file
 import pandas as pd
 from src import dbContext, ordensAberta
 import json
+
+secret_key = "Al010306*"
 
 @app.route("/api/lancamento", methods=['POST', 'PUT'])
 def lancamento():
@@ -79,49 +81,37 @@ def ordensAbertas():
 
 @app.route("/atualizar_ordens_aberta", methods=['POST'])
 def atualizar_ordens_aberta():
-    data = request.files.get("data")
-    data.save("C:\\Users\\Supra\\Desktop\\Sync\\server\\utils\\ordens_aberta.xls")
+    file = request.files.get("file")
+    
+    file.save("C:\\Users\\Supra\\Desktop\\PCP-Supra\\server\\utils\\ordens_aberta.xls")
     response = ordensAberta.puxar_ordens_aberta()
     
     if (response):
-        return "atualizou"
+        return jsonify({"status": "sucesso ao atualizar ordens em aberta"})
     else:
-        return "erro"
+        return jsonify({"status": "Erro au atualizar ordens em aberto"})
     
 # PAGES ROUTE ----------------------------------------------------------------------------
-
-@app.route("/")
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
-
-@app.route('/atualizar-op')
-def atualizar_op_page():
-    return render_template("atualizarOp.html")
-
-@app.route('/registrar-usuario')
-def registrar_page():
-    return render_template("registrarUsuarios.html")
 
 # -----------------------------------------------------------------------------------------
 
 @app.route('/api/registrar-usuario', methods=['POST'])
 def registrar_usuarios():
-    username = request.form.get("username").lower()
-    password = request.form.get("password")
-    admin = request.form.get("admin") == "on"
-    
+    request_json = request.get_json()
+    username = request_json.get("username").lower()
+    password = request_json.get("password")
+    admin = False
     #------
     
     existe_usuario = dbContext.verificar_usuario_existente(username)
     
     if existe_usuario:
-        return "Usuario já cadastrado"
+        return jsonify({"status": "Usuario já existe"})
     #------
     
     dbContext.registrar_usuarios(username, password, admin)
     
-    return redirect(url_for('registrar_page'))
+    return jsonify({"status": "Usuario criado com sucesso"})
     
 @app.route('/api/trocar-senha')
 def trocar_senha():
@@ -157,8 +147,30 @@ def finalizar():
     else:
         return {"mensagem": "error"}
     
+
+@app.route("/usuarios", methods=["POST"])
+def usuarios():
+    jsonRequest = request.get_json()
+    if jsonRequest.get("secret_key") != secret_key:
+        return jsonify({"status": "secret_key incorreta"})
+    data = dbContext.view_usuarios()
     
-@app.route("/download-apk")
-def download_apk():
-    apk_path = "C:\\Users\\Supra\\Desktop\\Sync\\client\\android\\app\\build\\intermediates\\apk\\debug\\app-debug.apk"
-    return send_file(apk_path, as_attachment=True)
+    data_json = [
+        {
+            "id": item[0],
+            "username": item[1]
+        }
+        for item in data
+    ]    
+    return jsonify(data_json)
+
+@app.route("/delete-user", methods=["POST"])
+def deletar_usuario():
+    jsonRequest = request.get_json()
+    
+    if jsonRequest.get("secret_key") != secret_key:
+        return jsonify({"status": "secret_key incorreta"})
+    
+    dbContext.deletar_usuario(jsonRequest.get("id_user"))
+    return jsonify({"status": "usuario deletado"})
+    

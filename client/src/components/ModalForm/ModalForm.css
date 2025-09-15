@@ -1,8 +1,14 @@
-ion-modal {
-  --background: rgb(255, 255, 255);
-  --height:100vh;
-  --width:100%;
-  --flex-direction: column;
+@keyframes aparecer {
+  0% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
+
+h1 {
+  margin: 0;
 }
 
 .modal-conexao {
@@ -13,13 +19,16 @@ ion-modal {
   z-index: 10000;
 }
 
-.modal-conexao-card {
-  padding: 2rem;
-  width: 90%;
-  max-width: 400px;
-  margin: auto;
-  text-align: center;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+ion-select {
+  --background: #fff;
+  --color: #000; 
+  --placeholder-color: #000;
+}
+
+.modal {
+  backdrop-filter: blur(1px);
+  animation: aparecer .1s;
+  transition: 1s;
 }
 
 

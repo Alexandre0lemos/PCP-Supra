@@ -19,22 +19,19 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 /**
- * Ionic Dark Mode
+ * Light Mode Configuration
  * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
+ * App configured to use light mode regardless of system preference
  */
 
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+/* Light mode always enabled */
+import '@ionic/react/css/palettes/dark.always.css';
 import './theme/modules.css';
 import './theme/global.css';
 
 /* Theme variables */
 import Login from './pages/Login/Login';
 import OrdensAberta from './pages/OrdensAberta/OrdensAberta';
-import { Lancamentos } from './pages/Lancamentos/Lancamentos';
 
 setupIonicReact();
 
@@ -44,7 +41,6 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/login" component={Login} />
         <Route exact path="/ordens-aberta" component={OrdensAberta} />
-        <Route exact path="/lancamentos" component={Lancamentos} />
         <Route exact path="/" render={() => <Redirect to="/login" />} />
         <Route render={() => <Redirect to="/login" />} />
       </IonRouterOutlet>

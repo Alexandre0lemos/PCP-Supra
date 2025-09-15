@@ -3,6 +3,6 @@ ion-modal {
 }
 
 #input {
-    background-color: rgba(65, 154, 255, 0.11);
-    color: white;
+    color: black;
+    background-color: #fff;
 }

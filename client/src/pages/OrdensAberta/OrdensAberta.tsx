@@ -1,8 +1,6 @@
 import {
   IonContent,
   IonPage,
-  IonSelect,
-  IonSelectOption,
   useIonRouter,
   IonSpinner,
   IonAlert,
@@ -20,10 +18,10 @@ interface Ordem {
   PRODUTO: string;
   NUMOP: string;
   NUMLOTE: string;
-  FALTA: number;
+  FALTA: string | number;
   DTLANC: string;
-  QTPRODUZIDA: number;
-  QTPRODUZIR: number;
+  QTPRODUZIDA: string | number;
+  QTPRODUZIR: string | number;
   SECAO: string;
 }
 
@@ -107,10 +105,10 @@ const OrdensAberta: React.FC = () => {
     return (
       <IonPage>
         <Header />
-        <IonContent fullscreen color="dark">
+<IonContent fullscreen color="light">
           <div className="flex flex-col items-center justify-center h-full gap-4">
             <IonSpinner
-              color={"light"}
+              color={"primary"}
               name="crescent"
               className="spinner-preto"
             />
@@ -121,41 +119,50 @@ const OrdensAberta: React.FC = () => {
   }
 
   return (
-    <IonPage>
+    <div>
       <Header />
-      <IonContent fullscreen color="dark">
+      <div className="scrollable-container">
         <div
-          className="mr-3 mb-2 mt-2 ml-4 pt-2 flex gap-3"
+          className="mx-2 h-10 justify-center items-center pt-2 flex flex-row gap-3"
           id="filter-content"
         >
-          <IonSelect
-            value={secaoSelecionada}
-            onIonChange={(e) => setSecaoSelecionada(e.detail.value)}
-            color="medium"
-            placeholder="Selecionar seção"
-          >
-            <IonSelectOption value="">GERAL</IonSelectOption>
-            {secoes.map((secao) => (
-              <IonSelectOption key={secao} value={secao}>
-                {secao}
-              </IonSelectOption>
-            ))}
-          </IonSelect>
+          <div className="w-full">
+            <select
+              value={secaoSelecionada}
+              onChange={(e) => setSecaoSelecionada(e.target.value)}
+              className="w-full outline-none"
+            >
+              <option value="">GERAL</option>
+              {secoes.map((secao) => (
+                <option key={secao} value={secao}>
+                  {secao}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <SearchInput onPesquisar={setFilterSearch} isOpen={false} />
+          <div className="pt-2">
+            <SearchInput onPesquisar={setFilterSearch} isOpen={false} />
+          </div>
         </div>
 
         {Object.entries(agrupadasPorProduto).map(([codProd, ordens]) => (
-          <div key={codProd} className="m-3 ml-4 p-2 bg-zinc-800 rounded-md">
-            <div className="flex justify-between items-center">
-              <h1 className="text-white font-semibold">
-                {ordens[0].PRODUTO} ({codProd})
-              </h1>
-              <button
+          <div key={codProd} className="ml-3 pl-2 pr-2 m-2 bg-zinc-800 rounded-md">
+            <div className="flex justify-between gap-3 mt-3 items-center">
+              <div className="flex-col flex gap-1">
+                <h1 className="text-white font-semibold">
+                  {ordens[0].PRODUTO} ({codProd})
+                </h1>
+
+                <p className="text-gray-400 mb-2">{ordens.length} ordem(ns)</p>
+              </div>
+              <div className="-mt-2">
+                <button
+                className="h-full flex items-center"
                 aria-label="Mostrar/Esconder ordens"
                 onClick={(e) => {
                   const content =
-                    e.currentTarget.parentElement?.parentElement
+                    e.currentTarget.parentElement?.parentElement?.parentElement
                       ?.lastElementChild;
 
                   if (content?.classList.contains("activate")) {
@@ -173,17 +180,17 @@ const OrdensAberta: React.FC = () => {
                   );
                 }}
               >
-                <ArrowDown color="white" size={24} id="arrow" />
+                <ArrowDown color="#000" className="" size={24} id="arrow" />
               </button>
-            </div>
 
-            <p className="text-gray-400 mb-2">{ordens.length} ordem(ns)</p>
+              </div>      
+            </div>
 
             <div id="content-orders" className="flex flex-col gap-5">
               {ordens.map((ordem, i) => (
                 <div
                   key={i}
-                  className="flex justify-between items-start bg-zinc-800 p-3 rounded text-white"
+                  className="flex justify-between items-start bg-zinc-800 p-3 rounded mb-2 text-white"
                 >
                   <div>
                     <p>
@@ -221,15 +228,14 @@ const OrdensAberta: React.FC = () => {
                         .finally(() => setLoading(false));
                     }}
                     onAlertErro={setAlertErro}
-                    className="btn-lancamento"
-                    codprod={ordem.CODPROD}
+                    codprod={Number(ordem.CODPROD)}
                     dt_criacao={ordem.DTLANC}
-                    falta={ordem.FALTA}
-                    num_lote={ordem.NUMLOTE}
-                    num_op={ordem.NUMOP}
+                    falta={Number(ordem.FALTA)}
+                    num_lote={Number(ordem.NUMLOTE)}
+                    num_op={Number(ordem.NUMOP)}
                     produto={ordem.PRODUTO}
-                    qt_produzida={ordem.QTPRODUZIDA}
-                    qt_produzir={ordem.QTPRODUZIR}
+                    qt_produzida={Number(ordem.QTPRODUZIDA)}
+                    qt_produzir={Number(ordem.QTPRODUZIR)}
                     secao={ordem.SECAO}
                     supervisor={supervisor}
                   />
@@ -246,8 +252,8 @@ const OrdensAberta: React.FC = () => {
           message={"Processo não foi concluido devido a um erro de conexão"}
           buttons={["OK"]}
         />
-      </IonContent>
-    </IonPage>
+      </div>
+    </div>
   );
 };
 

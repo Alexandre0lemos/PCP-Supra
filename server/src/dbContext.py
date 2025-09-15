@@ -112,6 +112,7 @@ def select_users():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users")
     data = cursor.fetchall()
+    conn.close
     return data
 
 def verificar_usuario_existente(username):
@@ -143,5 +144,22 @@ def finalizar(finalizado, id_lancamento):
         UPDATE lancamentos SET finalizado = ?
         WHERE id_lancamento = ?          
     """, (finalizado, id_lancamento))
+    conn.commit()
+    conn.close()
+    
+def view_usuarios():
+    conn = sqlite3.connect(dbMain)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, username FROM users               
+    """)
+    data = cursor.fetchall()
+    conn.close()
+    return data
+
+def deletar_usuario(id):
+    conn = sqlite3.connect(dbMain)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM users WHERE id = ?", (id,))
     conn.commit()
     conn.close()

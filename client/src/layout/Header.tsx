@@ -6,7 +6,7 @@ export const Header: React.FC = () => {
         <IonHeader>
             <IonToolbar color={'dark'}>
                 <IonButtons className='mr-4 ml-4'>
-                    <IonTitle color={'light'} className="pl-3 cursor-pointer text-lg"
+                    <IonTitle color={'light'} className="pl-3 -ml-4 cursor-pointer text-lg"
                         onClick={() => {
                             location.href = "/ordens-aberta"
                         }}

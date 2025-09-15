@@ -1,29 +1,9 @@
-import {
-  IonModal,
-  IonButton,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonSelect,
-  IonSelectOption,
-  IonCardContent,
-  IonList,
-  IonCardHeader,
-  IonCard,
-  IonCardTitle,
-  IonCardSubtitle,
-  IonCol,
-  IonRow,
-  IonGrid,
-  IonTitle,
-  IonAlert,
-  IonSpinner,
-  IonText,
-} from "@ionic/react";
+import { IonSelect, IonSelectOption, IonButton } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
 import "./ModalForm.css";
 import { ItemContent } from "../ItemContent/ItemContent";
 import { api } from "../../urlApiConfig";
+
 
 type PropsTypes = {
   codprod: number;
@@ -258,92 +238,97 @@ function ModalForm({
   };
   return (
     <>
-      <IonButton color="danger" onClick={() => setMostrarModal(true)}>
+      <IonButton className="mt-8" onClick={() => setMostrarModal(true)}>
         Lançar
       </IonButton>
 
-      <IonModal
-        id="modal-form"
-        isOpen={mostrarModal}
-        onDidDismiss={() => setMostrarModal(false)}
-      >
-        <IonCard className="h-full pt-6" color="light">
-          <IonCardHeader className="p-4">
-            <div className="flex justify-between mb-2">
-              <IonCardTitle>Detalhes da Produção</IonCardTitle>
-              <IonLabel>
-                <strong>OP: {num_op}</strong>
-              </IonLabel>
-            </div>
-            <IonCardSubtitle>
-              Seção: {secao} | Produto: {produto}
-            </IonCardSubtitle>
-          </IonCardHeader>
+      {mostrarModal && (
+        <div
+          id="modal-form"
+          className="fixed inset-0 z-50 flex items-start justify-center modal bg-opacity-50"
+        >
+          <div
+            className="bg-white text-black shadow-2xl  gap-4 flex-col flex border-gray-400 rounded-b-lg w-full p-2 pt-2 pb-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className="border-b pb-4 flex-col flex gap-1 border-gray-400">
+              <div className="flex text-sm mt-1.5 justify-between items-center mb-2">
+                <h1>Detalhes da Produção</h1>
+                <label>
+                  <strong>OP: {num_op}</strong>
+                </label>
+              </div>
+              <div className="text-sm">
+                Seção: {secao} | Produto: {produto}
+              </div>
+            </header>
 
-          <IonCardContent>
-            <IonList>
-              <IonCard color="light" className="mb-2">
-                <IonItem lines="none">
-                  <IonTitle size="large" className="text-center">
+            <div>
+              <div className="border-b pb-4 border-gray-400 flex-col flex gap-4">
+                <div>
+                  <div className="text-center text-lg font-normal">
                     Resumo da Produção
-                  </IonTitle>
-                </IonItem>
-                <IonGrid>
-                  <IonRow>
-                    <IonCol>
-                      <IonItem lines="none">
-                        <ItemContent label="Produzir:" value={qt_produzir} />
-                      </IonItem>
-                    </IonCol>
-                    <IonCol>
-                      <IonItem lines="none">
-                        <ItemContent label="Produzido:" value={qt_produzida} />
-                      </IonItem>
-                    </IonCol>
-                    <IonCol>
-                      <IonItem lines="none">
-                        <ItemContent label="Falta:" value={falta} />
-                      </IonItem>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </IonCard>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <div>
+                      <ItemContent label="Produzir:" value={qt_produzir} />
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <ItemContent label="Produzido:" value={qt_produzida} />
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <ItemContent label="Falta:" value={falta} />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-              <IonItem>
-                <IonLabel position="stacked">
-                  Quantidade Produzida Agora
-                </IonLabel>
-                <IonInput
+              <div className="mt-5">
+                <label htmlFor="quantidade" className="block mb-1">
+                  Quantidade Produzida
+                </label>
+                <input
+                  id="quantidade"
                   value={quantidade ?? ""}
                   type="number"
-                  onIonChange={(e) => setQuantidade(Number(e.detail.value))}
+                  onChange={(e) => setQuantidade(Number(e.target.value))}
                   placeholder="Digite a quantidade"
+                  className="w-full border-b border-gray-400 rounded px-2 py-1"
                 />
-              </IonItem>
+              </div>
 
-              <IonItem>
-                <IonLabel position="stacked">Tipo de Lançamento</IonLabel>
+              <div className="mt-5 border-b border-gray-400">
+                <label htmlFor="tipoLancamento" className="block mb-1">
+                  Tipo de Lançamento
+                </label>
                 <IonSelect
+                  id="tipoLancamento"
+                  className="pl-2"
+                  color={"none"}
                   value={tipoLancamento}
                   onIonChange={(e) => setTipoLancamento(e.detail.value)}
                   placeholder="Selecione"
                   interface="action-sheet"
                 >
                   <IonSelectOption value="parcial">Parcial</IonSelectOption>
-                  <IonSelectOption value="finalizado">
-                    Finalizado
-                  </IonSelectOption>
+                  <IonSelectOption value="finalizado">Finalizado</IonSelectOption>
                 </IonSelect>
-              </IonItem>
-            </IonList>
+              </div>
+            </div>
 
-            <div className="flex justify-between mt-3">
+            <div className="flex justify-between">
               <IonButton color="danger" onClick={() => setMostrarModal(false)}>
                 Cancelar
               </IonButton>
               <IonButton
                 expand="block"
-                color="dark"
+                color="primary"
                 onClick={() => {
                   if (!processando) {
                     setProcessando(true);
@@ -354,66 +339,133 @@ function ModalForm({
                 Lançar Produção
               </IonButton>
             </div>
-          </IonCardContent>
-        </IonCard>
-      </IonModal>
+          </div>
+        </div>
+      )}
 
-      <IonAlert
-        isOpen={alertaCampos}
-        onDidDismiss={() => setAlertaCampos(false)}
-        header="Campos obrigatórios"
-        message="Preencha todos os campos obrigatórios antes de lançar."
-        buttons={["OK"]}
-      />
-
-      <IonAlert
-        isOpen={alertaFinalizadoParcial}
-        onDidDismiss={() => setAlertaFinalizadoParcial(false)}
-        header="Inconsistência"
-        message="Um lançamento parcial não pode ser igual à quantidade faltante. Verifique se a ordem foi finalizada."
-        buttons={["Entendi"]}
-      />
-
-      <IonAlert
-        isOpen={alertaErro}
-        onDidDismiss={() => setAlertaErro(false)}
-        header="Erro ao lançar"
-        message="Ocorreu um problema ao comunicar com o servidor. Tente novamente."
-        buttons={["OK"]}
-      />
-
-      <IonAlert
-        isOpen={alertaMaiorQueFalta}
-        onDidDismiss={() => setAlertaMaiorQueFalta(false)}
-        header="Atenção"
-        message="A quantidade produzida não pode ser maior do que o restante da ordem."
-        buttons={["OK"]}
-      />
-
-      <IonAlert
-        isOpen={alertaSucesso}
-        onDidDismiss={() => setAlertaSucesso(false)}
-        header="Sucesso"
-        message="Lançamento realizado com sucesso!"
-        buttons={["Fechar"]}
-      />
-      <IonModal isOpen={erroConexao}>
-        <IonCard
-          className="h-full flex flex-col items-center justify-center p-5"
-          color="dark"
+      {alertaCampos && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setAlertaCampos(false)}
         >
-          <IonSpinner
-            name="crescent"
-            color={"dark"}
-            style={{ width: "48px", height: "48px" }}
-          />
-          <IonText color={"light"} className=" mt-4 text-center">
-            Não foi possível conectar ao servidor.
-            <br />
-            Verifique sua conexão com a internet.
-          </IonText>
-        </IonCard>
-      </IonModal>
+          <div
+            className="bg-white p-6 rounded shadow max-w-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-lg font-semibold mb-2">Campos obrigatórios</h2>
+            <p>Preencha todos os campos obrigatórios antes de lançar.</p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+              onClick={() => setAlertaCampos(false)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {alertaFinalizadoParcial && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setAlertaFinalizadoParcial(false)}
+        >
+          <div
+            className="bg-white p-6 rounded shadow max-w-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-lg font-semibold mb-2">Inconsistência</h2>
+            <p>
+              Um lançamento parcial não pode ser igual à quantidade faltante.
+              Verifique se a ordem foi finalizada.
+            </p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+              onClick={() => setAlertaFinalizadoParcial(false)}
+            >
+              Entendi
+            </button>
+          </div>
+        </div>
+      )}
+
+      {alertaErro && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setAlertaErro(false)}
+        >
+          <div
+            className="bg-white p-6 rounded shadow max-w-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-lg font-semibold mb-2">Erro ao lançar</h2>
+            <p>Ocorreu um problema ao comunicar com o servidor. Tente novamente.</p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+              onClick={() => setAlertaErro(false)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {alertaMaiorQueFalta && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setAlertaMaiorQueFalta(false)}
+        >
+          <div
+            className="bg-white p-6 rounded shadow max-w-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-lg font-semibold mb-2">Atenção</h2>
+            <p>A quantidade produzida não pode ser maior do que o restante da ordem.</p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+              onClick={() => setAlertaMaiorQueFalta(false)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {alertaSucesso && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setAlertaSucesso(false)}
+        >
+          <div
+            className="bg-white p-6 rounded shadow max-w-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-lg font-semibold mb-2">Sucesso</h2>
+            <p>Lançamento realizado com sucesso!</p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+              onClick={() => setAlertaSucesso(false)}
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {erroConexao && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 p-5"
+          onClick={() => setErroConexao(false)}
+        >
+          <div className="bg-gray-800 flex flex-col items-center justify-center p-5 rounded text-white max-w-sm">
+            <div className="loader mb-4" />
+            <p className="text-center">
+              Não foi possível conectar ao servidor.
+              <br />
+              Verifique sua conexão com a internet.
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 }

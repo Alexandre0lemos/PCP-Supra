@@ -5,9 +5,9 @@ type PropsTypes = {
     value: number
 }
 export const ItemContent: React.FC<PropsTypes> = ({label, value}) => (
-  <div id="item" className="flex flex-col m-auto items-center mb-2">
-    <div id="label">
-        <h2>{label}</h2>
+  <div id="item" className="flex flex-col items-center">
+    <div id="label" >
+        <span>{label}</span>
     </div>
     <div id="value">
         <span>{value}</span>

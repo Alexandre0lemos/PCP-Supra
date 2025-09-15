@@ -14,11 +14,11 @@ export const SearchInput: React.FC<PropsSearch> = ({onPesquisar = () => {}}) => 
 
   return (
     <>
-      <IonButton size="small" className="h-10" onClick={() => setIsOpen(true)} color="medium">
+      <button className="h-10" onClick={() => setIsOpen(true)}>
         <Search size={20} />
-      </IonButton>
+      </button>
 
-      <IonModal isOpen={isOpen}>
+      <IonModal className="backdrop-blur-[1px]" isOpen={isOpen}>
         <div className="flex h-full flex-col gap-2 justify-center items-center">
           <div>
             <input

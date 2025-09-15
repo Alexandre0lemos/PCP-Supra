@@ -1,17 +1,15 @@
 import {
   IonAlert,
-  IonButton,
   IonInput,
-  IonItem,
   IonPage,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
 import { api } from "../../urlApiConfig";
 
 import "./Login.css";
+import { User } from "lucide-react";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -68,7 +66,7 @@ const Login: React.FC = () => {
       localStorage.setItem("datelogin", dataAtual);
       localStorage.setItem("isAdmin?", resposta["isAdmin?"]);
       location.href =
-        resposta["isAdmin?"] == 1 ? "/lancamentos" : "ordens-aberta";
+        resposta["isAdmin?"] == 1 ? "/ordens-aberta" : "/ordens-aberta";
     } else if (resposta?.success == false) {
       mostrarAlerta("Usuário ou senha incorreta.");
       setUsername("");
@@ -79,57 +77,66 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <div
-        className="bg-white h-full flex flex-col justify-center"
+        className="bg-white min-h-screen flex flex-col justify-center items-center px-4 py-8"
         color="dark"
       >
         <div
           id="container"
-          className="h-11/12 p-5 flex flex-col justify-center"
+          className="w-full border border-gray-300 max-w-md bg-white rounded-lg shadow-lg p-6 md:p-8"
         >
-          <IonToolbar className="p-5" color="dark">
-            <IonTitle className="text-center p-2">Login</IonTitle>
+          <div className="border-b flex justify-center border-gray-200 pb-4 mb-6" color="light">
+            <div className="flex flex-col items-center gap-2 w-min">
+              <User size={38} />
+              <IonTitle className="text-center text-gray-800">
+                Login
+              </IonTitle>
+            </div>
+          </div>
 
-            <IonItem color="dark">
+          <div className="space-y-4">
+            <div className=" border-b border-gray-300">
               <IonInput
                 value={username}
                 label="Usuário:"
                 labelPlacement="floating"
+                className="text-gray-700"
                 onIonInput={(e) =>
                   setUsername(e.detail.value?.toLowerCase().trim() ?? "")
                 }
               />
-            </IonItem>
+            </div>
 
-            <IonItem color="dark">
+            <div color="light" className=" border-b border-gray-300">
               <IonInput
                 value={password}
                 label="Senha:"
                 labelPlacement="floating"
                 type="password"
+                className="text-gray-700"
                 onIonInput={(e) => setPassword(e.detail.value ?? "")}
                 onKeyDown={(e) => e.key === "Enter" && realizarLogin()}
               />
-            </IonItem>
+            </div>
 
-            <IonButton
-              onClick={realizarLogin}
-              expand="block"
-              color="danger"
-              className="mt-4"
+            <div
+              className="mt-6 w-full h-12 flex rounded-sm justify-center items-center text-lg bg-[var(--ion-color-primary-tint)]"
             >
-              Entrar
-            </IonButton>
+              <button
+              className="!text-white font-semibold"
+              onClick={realizarLogin}
+              >Entrar</button>
+            </div>
+          </div>
 
-            {!erroConexao && (
-              <IonAlert
-                isOpen={alerta}
-                onDidDismiss={() => setAlerta(false)}
-                header="Atenção"
-                message={mensagem}
-                buttons={["OK"]}
-              />
-            )}
-          </IonToolbar>
+          {!erroConexao && (
+            <IonAlert
+              isOpen={alerta}
+              onDidDismiss={() => setAlerta(false)}
+              header="Atenção"
+              message={mensagem}
+              buttons={["OK"]}
+            />
+          )}
         </div>
 
         <IonAlert
