@@ -123,7 +123,7 @@ const OrdensAberta: React.FC = () => {
       <Header />
       <div className="scrollable-container">
         <div
-          className="mx-2 h-10 justify-center items-center pt-2 flex flex-row gap-3"
+          className="mx-2 h-10 justify-center items-center pt-3 flex flex-row gap-3"
           id="filter-content"
         >
           <div className="w-full">
