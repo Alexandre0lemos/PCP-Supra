@@ -245,7 +245,7 @@ function ModalForm({
       {mostrarModal && (
         <div
           id="modal-form"
-          className="fixed inset-0 z-50 flex items-start justify-center modal bg-opacity-50"
+          className="fixed inset-0 z-50 mt-4 flex items-start justify-center modal bg-opacity-50"
         >
           <div
             className="bg-white text-black shadow-2xl  gap-4 flex-col flex border-gray-400 rounded-b-lg w-full p-2 pt-2 pb-4"

@@ -122,7 +122,7 @@ const Login: React.FC = () => {
               className="mt-6 w-full h-12 flex rounded-sm justify-center items-center text-lg bg-[var(--ion-color-primary-tint)]"
             >
               <button
-              className="!text-white font-semibold"
+              className="!text-white w-full h-full font-semibold"
               onClick={realizarLogin}
               >Entrar</button>
             </div>

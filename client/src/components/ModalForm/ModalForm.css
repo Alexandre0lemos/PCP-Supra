@@ -27,7 +27,7 @@ ion-select {
 
 .modal {
   backdrop-filter: blur(1px);
-  animation: aparecer .1s;
+  animation: aparecer .2s;
   transition: 1s;
 }
 
