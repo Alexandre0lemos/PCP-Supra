@@ -1,0 +1,15 @@
+@keyframes modal-animation {
+    0% {opacity: 0;} 100% {opacity: 1;}
+}
+
+.modal-content-close {
+    transform: translateY(-100%);
+}
+
+.modal-content-open {
+    transform: translateY(0%)
+}
+
+.modal-container {
+    animation: modal-animation .1s ease-in;
+}

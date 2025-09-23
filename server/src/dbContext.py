@@ -97,15 +97,15 @@ def registrar_usuarios(username, password, admin):
     conn.commit()
     cursor.close()
     
-def apagarLancamentos():
-    conn = sqlite3.connect(dbMain)
-    cursor = conn.cursor()
-    cursor.execute("""
-        DROP TABLE IF EXISTS lancamentos;
-    """)
+# def apagarLancamentos():
+#     conn = sqlite3.connect(dbMain)
+#     cursor = conn.cursor()
+#     cursor.execute("""
+#         DROP TABLE IF EXISTS lancamentos;
+#     """)
     
-    conn.commit()
-    cursor.close()
+#     conn.commit()
+#     cursor.close()
     
 def select_users():
     conn = sqlite3.connect(dbMain)
@@ -161,5 +161,16 @@ def deletar_usuario(id):
     conn = sqlite3.connect(dbMain)
     cursor = conn.cursor()
     cursor.execute("DELETE FROM users WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    
+def atualizar_lancamento(id_lancamento, quantidade, tipo_lancamento):
+    conn = sqlite3.connect(dbMain)
+    cursor = conn.cursor()
+    cursor.execute('''
+        UPDATE lancamentos 
+        SET lancamento = ?, tipo_lancamento = ?
+        WHERE id_lancamento = ?               
+    ''', (quantidade, tipo_lancamento, id_lancamento))
     conn.commit()
     conn.close()

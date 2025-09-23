@@ -1,16 +1,14 @@
-import { IonButton, IonModal } from "@ionic/react";
 import { Search } from "lucide-react";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import "./SearchInput.css"
+import { Modal } from "../Modal";
 
 type PropsSearch = {
-  isOpen: boolean;
-  onPesquisar?: (value:string) => void;
+  onPesquisar: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const SearchInput: React.FC<PropsSearch> = ({onPesquisar = () => {}}) => {
+export const SearchInput: React.FC<PropsSearch> = ({onPesquisar}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputChange, setInputChange] = useState("");
 
   return (
     <>
@@ -18,30 +16,11 @@ export const SearchInput: React.FC<PropsSearch> = ({onPesquisar = () => {}}) => 
         <Search size={20} />
       </button>
 
-      <IonModal className="backdrop-blur-[1px]" isOpen={isOpen}>
-        <div className="flex h-full flex-col gap-2 justify-center items-center">
-          <div>
-            <input
-              id="input"
-              className="border rounded  border-gray-400 p-1.5 w-72"
-              color={"medium"}
-              onInput={(e) => setInputChange((e.target as HTMLInputElement).value)}
-            ></input>
-          </div>
-          <div className="flex justify-center gap-2">
-            <IonButton className="w-35" color={"danger"} onClick={() => setIsOpen(false)}>
-              Fechar
-            </IonButton>
-            <IonButton className="w-35" color={"dark"} onClick={() => {
-              onPesquisar(inputChange)
-              setIsOpen(false)
-              setInputChange("")
-            }}>
-              Pesquisar
-            </IonButton>
-          </div>
+      <Modal transition={300} onClose={() => setIsOpen(false)} isOpen={isOpen}>
+        <div className="w-10/12 h-20 flex justify-center items-start mt-8">
+          <input onChange={onPesquisar} autoFocus placeholder="Nome do Produto" className="border-b-2 rounded-xs placeholder:text-gray-500 shadow-2xl w-full pl-0 p-1.5 border-blue-400 " type="text" />
         </div>
-      </IonModal>
+      </Modal>
     </>
   );
 };

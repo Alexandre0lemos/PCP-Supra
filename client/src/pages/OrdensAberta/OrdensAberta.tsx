@@ -5,13 +5,15 @@ import {
   IonSpinner,
   IonAlert,
 } from "@ionic/react";
-import React, { useEffect, useMemo, useState, useRef } from "react";
+import React, { useEffect, useMemo, useState, useRef, ChangeEvent } from "react";
 import { Header } from "../../layout/Header";
 import { ArrowDown } from "lucide-react";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import { SearchInput } from "../../components/Search/SearchInput";
 import "./OrdensAberta.css";
 import { api } from "../../urlApiConfig";
+import { FooterBar } from "../../layout/FooterBar";
+import { Container } from "../../components/Container/Index";
 
 interface Ordem {
   CODPROD: string;
@@ -104,8 +106,8 @@ const OrdensAberta: React.FC = () => {
   if (loading) {
     return (
       <IonPage>
-        <Header />
-<IonContent fullscreen color="light">
+      <Header />
+      <IonContent fullscreen color="light">
           <div className="flex flex-col items-center justify-center h-full gap-4">
             <IonSpinner
               color={"primary"}
@@ -120,17 +122,17 @@ const OrdensAberta: React.FC = () => {
 
   return (
     <div>
-      <Header />
-      <div className="scrollable-container">
+      <Header title="Ordens em aberta"/>
+      <Container className="pl-0.5 pr-0.5">
         <div
-          className="mx-2 h-10 justify-center items-center pt-3 flex flex-row gap-3"
+          className="mx-2 h-10 justify-center pt-2 items-center flex flex-row gap-3"
           id="filter-content"
         >
-          <div className="w-full">
+          <div className="w-full pt-1">
             <select
               value={secaoSelecionada}
               onChange={(e) => setSecaoSelecionada(e.target.value)}
-              className="w-full outline-none"
+              className="w-full outline-none "
             >
               <option value="">GERAL</option>
               {secoes.map((secao) => (
@@ -142,12 +144,12 @@ const OrdensAberta: React.FC = () => {
           </div>
 
           <div className="pt-2">
-            <SearchInput onPesquisar={setFilterSearch} isOpen={false} />
+            <SearchInput onPesquisar={(e: ChangeEvent<HTMLInputElement>) => setFilterSearch(e.target.value)} />
           </div>
         </div>
 
         {Object.entries(agrupadasPorProduto).map(([codProd, ordens]) => (
-          <div key={codProd} className="ml-3 pl-2 pr-2 m-2 bg-zinc-800 rounded-md">
+          <div key={codProd} className="pl-2 p-3 pr-2 m-2 card bg-zinc-800 rounded-2xl rounded-r-lg">
             <div className="flex justify-between gap-3 mt-3 items-center">
               <div className="flex-col flex gap-1">
                 <h1 className="text-white font-semibold">
@@ -190,20 +192,20 @@ const OrdensAberta: React.FC = () => {
               {ordens.map((ordem, i) => (
                 <div
                   key={i}
-                  className="flex justify-between items-start bg-zinc-800 p-3 rounded mb-2 text-white"
+                  className="flex justify-between items-start bg-zinc-800 p-3 rounded-lg mb-2 text-white"
                 >
                   <div>
                     <p>
-                      <strong>OP:</strong> {ordem.NUMOP}
+                      <span className="text-blue-500 font-semibold">OP:</span> {ordem.NUMOP}
                     </p>
                     <p>
-                      <strong>Lote:</strong> {ordem.NUMLOTE}
+                      <span className="text-blue-500 font-semibold">Lote:</span> {ordem.NUMLOTE}
                     </p>
                     <p>
-                      <strong>Falta:</strong> {ordem.FALTA}
+                      <span className="text-blue-500 font-semibold">Falta:</span> {ordem.FALTA}
                     </p>
                     <p>
-                      <strong>Data:</strong> {ordem.DTLANC}
+                      <span className="text-blue-500 font-semibold">Data:</span> {ordem.DTLANC}
                     </p>
                   </div>
 
@@ -252,7 +254,8 @@ const OrdensAberta: React.FC = () => {
           message={"Processo não foi concluido devido a um erro de conexão"}
           buttons={["OK"]}
         />
-      </div>
+      </Container>
+      <FooterBar />
     </div>
   );
 };

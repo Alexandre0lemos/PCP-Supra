@@ -1,8 +1,9 @@
 import { IonSelect, IonSelectOption, IonButton } from "@ionic/react";
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState } from "react";
 import "./ModalForm.css";
 import { ItemContent } from "../ItemContent/ItemContent";
 import { api } from "../../urlApiConfig";
+import { Modal } from "../Modal";
 
 
 type PropsTypes = {
@@ -76,6 +77,7 @@ function ModalForm({
   const [intervalo, setIntervalo] = useState<NodeJS.Timeout | null>(null);
   const [objetoOperacao, setObjetoOperacao] = useState({})
 
+
   const [alertaCampos, setAlertaCampos] = useState(false);
   const [alertaFinalizadoParcial, setAlertaFinalizadoParcial] = useState(false);
   const [alertaErro, setAlertaErro] = useState(false);
@@ -141,6 +143,11 @@ function ModalForm({
 
   const handleSubmit = async () => {
     const sucess = await verificar_existencia();
+    const datetime = new Date()
+
+    const datetimeNow = datetime.toLocaleString('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+    });
 
     if (!sucess) {
       alert("Os dados foram alterado no banco de dados, não foi possivel completar o lançamento")
@@ -154,14 +161,14 @@ function ModalForm({
       return;
     }
 
-    if (quantidade > falta) {
-      setAlertaMaiorQueFalta(true);
-      setQuantidade(null);
-      setProcessando(false);
-      return;
-    }
+    // if (quantidade > falta) {
+    //   setAlertaMaiorQueFalta(true);
+    //   setQuantidade(null);
+    //   setProcessando(false);
+    //   return;
+    // }
 
-    if (quantidade === falta && tipoLancamento === "parcial") {
+    if (quantidade >= falta && tipoLancamento === "parcial") {
       setAlertaFinalizadoParcial(true);
       setProcessando(false);
       return;
@@ -181,7 +188,7 @@ function ModalForm({
       tipo_lancamento: tipoLancamento,
       supervisor,
       operador: operador || "não definido",
-      observacao: `Faltava: ${falta}`,
+      observacao: `{Faltava: ${falta}, Data: ${datetimeNow}}`,
       id_lancamento: gerarIdLancamento(),
     };
 
@@ -242,17 +249,18 @@ function ModalForm({
         Lançar
       </IonButton>
 
-      {mostrarModal && (
-        <div
-          id="modal-form"
-          className="fixed inset-0 z-50 mt-4 flex items-start justify-center modal bg-opacity-50"
+      
+        <Modal
+        isOpen={mostrarModal}
+        transition={500}
+        onClose={() => setMostrarModal(false)}
         >
           <div
-            className="bg-white text-black shadow-2xl  gap-4 flex-col flex border-gray-400 rounded-b-lg w-full p-2 pt-2 pb-4"
+            className={`bg-white ${screen.width <= 425 && "pt-4"} text-black shadow-2xl  gap-4 flex-col flex border-gray-400 rounded-b-lg w-full p-2 pt-2 pb-4`}
             onClick={(e) => e.stopPropagation()}
           >
-            <header className="border-b pb-4 flex-col flex gap-1 border-gray-400">
-              <div className="flex text-sm mt-1.5 justify-between items-center mb-2">
+            <header className="border-b pb-4 flex-col flex border-gray-400">
+              <div className="flex text-sm mt-1.5 text-blue-500 justify-between items-center mb-2">
                 <h1>Detalhes da Produção</h1>
                 <label>
                   <strong>OP: {num_op}</strong>
@@ -267,7 +275,7 @@ function ModalForm({
               <div className="border-b pb-4 border-gray-400 flex-col flex gap-4">
                 <div>
                   <div className="text-center text-lg font-normal">
-                    Resumo da Produção
+                    Resumo da Produção:
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-4">
@@ -291,7 +299,7 @@ function ModalForm({
 
               <div className="mt-5">
                 <label htmlFor="quantidade" className="block mb-1">
-                  Quantidade Produzida
+                  Quantidade Produzida:
                 </label>
                 <input
                   id="quantidade"
@@ -305,7 +313,7 @@ function ModalForm({
 
               <div className="mt-5 border-b border-gray-400">
                 <label htmlFor="tipoLancamento" className="block mb-1">
-                  Tipo de Lançamento
+                  Tipo de Lançamento:
                 </label>
                 <IonSelect
                   id="tipoLancamento"
@@ -323,7 +331,9 @@ function ModalForm({
             </div>
 
             <div className="flex justify-between">
-              <IonButton color="danger" onClick={() => setMostrarModal(false)}>
+              <IonButton color="danger" onClick={async() => {
+                setMostrarModal(false)
+              }}>
                 Cancelar
               </IonButton>
               <IonButton
@@ -340,8 +350,8 @@ function ModalForm({
               </IonButton>
             </div>
           </div>
-        </div>
-      )}
+        </Modal>
+
 
       {alertaCampos && (
         <div

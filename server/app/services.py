@@ -36,7 +36,8 @@ def lancamento():
 @app.route("/view/lancados", methods=['GET'])
 def lancados():
     data = dbContext.select_lancamento()
- 
+    tipoObs = request.args.get("tipo")
+    
     json_data = [
         {
             "num_ordem": item[0],
@@ -49,7 +50,7 @@ def lancados():
             "tipo_lancamento": item[7],
             "supervisor": item[8],
             "operador": item[9],
-            "observacao": item[10],
+            "observacao": str(item[10]).split(",")[0].replace("{Faltava:", "") if tipoObs == "falta" else str(item[10]).replace("{", "").replace("}", ""),
             "finalizado": item[11],
             "id_lancamento": item[12]
         }
@@ -173,4 +174,9 @@ def deletar_usuario():
     
     dbContext.deletar_usuario(jsonRequest.get("id_user"))
     return jsonify({"status": "usuario deletado"})
-    
+
+@app.route("/api/update/lancamento", methods=["PUT", "POST"])
+def atualizar_lancamento():
+    json_data = request.get_json()
+    dbContext.atualizar_lancamento(json_data.get("id_lancamento"), json_data.get("lancamento"), json_data.get("tipo_lancamento")) 
+    return jsonify({"status": "200"}), 200

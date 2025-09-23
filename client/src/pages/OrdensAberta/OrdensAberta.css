@@ -95,11 +95,6 @@ h1 {
     }
 }
 
-.scrollable-container {
-    overflow-y: scroll;
-    height: 90dvh;
-}
-
 .bg-zinc-800 {
     background-color: #f0f9ff;
     transition: background-color 0.2s ease-in-out;
@@ -117,3 +112,6 @@ h1 {
     color: #1e40af;
 }
 
+.card {
+    border-left: .4rem solid #3b82f6;
+}
