@@ -3,7 +3,7 @@ import { api } from "../../urlApiConfig";
 import { Header } from "../../layout/Header";
 import { ModalEditarLancamento } from "../../components/ModalEditarLancamento/ModalEditarLancamento";
 import { FooterBar } from "../../layout/FooterBar";
-import { Container } from "../../components/Container/Index";
+import { Container } from "../../layout/Container/Index";
 
 interface lancamento {
   cod_produto: number;
@@ -50,7 +50,7 @@ export const EditarLancamento: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="pt-6 sm:pt-0">
       <Header title="Editar Lançamentos" />
       <Container>
         <div className="flex flex-col text-center gap-2 pt-2">

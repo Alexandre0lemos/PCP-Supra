@@ -1,6 +1,4 @@
 import {
-  IonContent,
-  IonPage,
   useIonRouter,
   IonSpinner,
   IonAlert,
@@ -13,7 +11,7 @@ import { SearchInput } from "../../components/Search/SearchInput";
 import "./OrdensAberta.css";
 import { api } from "../../urlApiConfig";
 import { FooterBar } from "../../layout/FooterBar";
-import { Container } from "../../components/Container/Index";
+import { Container } from "../../layout/Container/Index";
 
 interface Ordem {
   CODPROD: string;
@@ -105,9 +103,9 @@ const OrdensAberta: React.FC = () => {
 
   if (loading) {
     return (
-      <IonPage>
+      <div className="pt-6 sm:pt-0 backdrop-blur-[1px]">
       <Header />
-      <IonContent fullscreen color="light">
+      <Container>
           <div className="flex flex-col items-center justify-center h-full gap-4">
             <IonSpinner
               color={"primary"}
@@ -115,24 +113,25 @@ const OrdensAberta: React.FC = () => {
               className="spinner-preto"
             />
           </div>
-        </IonContent>
-      </IonPage>
+        </Container>
+        <FooterBar />
+      </div>
     );
   }
 
   return (
-    <div>
+    <div className="pt-6 sm:p-0">
       <Header title="Ordens em aberta"/>
       <Container className="pl-0.5 pr-0.5">
         <div
-          className="mx-2 h-10 justify-center pt-2 items-center flex flex-row gap-3"
+          className="mx-2 h-10 justify-between pt-2 items-center flex flex-row gap-3"
           id="filter-content"
         >
-          <div className="w-full pt-1">
+          <div className="pt-1 w-full">
             <select
               value={secaoSelecionada}
               onChange={(e) => setSecaoSelecionada(e.target.value)}
-              className="w-full outline-none "
+              className="w-full outline-none pr-1"
             >
               <option value="">GERAL</option>
               {secoes.map((secao) => (
@@ -144,7 +143,7 @@ const OrdensAberta: React.FC = () => {
           </div>
 
           <div className="pt-2">
-            <SearchInput onPesquisar={(e: ChangeEvent<HTMLInputElement>) => setFilterSearch(e.target.value)} />
+            <SearchInput value={filterSearch} onPesquisar={(e: ChangeEvent<HTMLInputElement>) => setFilterSearch(e.target.value)} />
           </div>
         </div>
 

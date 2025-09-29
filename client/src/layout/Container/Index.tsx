@@ -9,7 +9,7 @@ type PropsComponent = {
 export const Container: React.FC<PropsComponent> = ({ children, className }) => {
   return (
     <div className={className}>
-      <div className={`overflow-y-scroll h-[82.5dvh] ${className}`}>{children}</div>
+      <div className={`overflow-y-scroll sm:h-[calc(78.5dvh+1.5rem)] h-[78.5dvh] ${className}`}>{children}</div>
     </div>
   );
 };

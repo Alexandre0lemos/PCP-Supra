@@ -251,6 +251,7 @@ function ModalForm({
 
       
         <Modal
+        onBlur
         isOpen={mostrarModal}
         transition={500}
         onClose={() => setMostrarModal(false)}

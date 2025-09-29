@@ -26,13 +26,13 @@ import '@ionic/react/css/display.css';
 
 /* Light mode always enabled */
 import '@ionic/react/css/palettes/dark.always.css';
-import '../theme/modules.css';
-import '../theme/global.css';
+import './theme/modules.css';
+import './theme/global.css';
 
 /* Theme variables */
-import Login from '../pages/Login/Login';
-import OrdensAberta from '../pages/OrdensAberta/OrdensAberta';
-import { EditarLancamento } from '../pages/EditarLancamento/EditarLancamento';
+import Login from './pages/Login/Login';
+import OrdensAberta from './pages/OrdensAberta/OrdensAberta';
+import { EditarLancamento } from './pages/EditarLancamento/EditarLancamento';
 
 setupIonicReact();
 
