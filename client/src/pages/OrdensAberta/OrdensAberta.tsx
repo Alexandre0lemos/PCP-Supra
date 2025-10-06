@@ -122,7 +122,7 @@ const OrdensAberta: React.FC = () => {
   return (
     <div className="pt-6 sm:p-0">
       <Header title="Ordens em aberta"/>
-      <Container className="pl-0.5 pr-0.5">
+      <Container>
         <div
           className="mx-2 h-10 justify-between pt-2 items-center flex flex-row gap-3"
           id="filter-content"
@@ -195,16 +195,16 @@ const OrdensAberta: React.FC = () => {
                 >
                   <div>
                     <p>
-                      <span className="text-blue-500 font-semibold">OP:</span> {ordem.NUMOP}
+                      <span className="text-blue-500 sm:text-gray-800 sm:opacity-80 font-semibold">OP:</span> {ordem.NUMOP}
                     </p>
                     <p>
-                      <span className="text-blue-500 font-semibold">Lote:</span> {ordem.NUMLOTE}
+                      <span className="text-blue-500 sm:text-gray-800 sm:opacity-80 font-semibold">Lote:</span> {ordem.NUMLOTE}
                     </p>
                     <p>
-                      <span className="text-blue-500 font-semibold">Falta:</span> {ordem.FALTA}
+                      <span className="text-blue-500 sm:text-gray-800 sm:opacity-80 font-semibold">Falta:</span> {ordem.FALTA}
                     </p>
                     <p>
-                      <span className="text-blue-500 font-semibold">Data:</span> {ordem.DTLANC}
+                      <span className="text-blue-500 sm:text-gray-800 sm:opacity-80 font-semibold">Data:</span> {ordem.DTLANC}
                     </p>
                   </div>
 

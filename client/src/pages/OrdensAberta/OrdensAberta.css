@@ -113,5 +113,5 @@ h1 {
 }
 
 .card {
-    border-left: .4rem solid #3b82f6;
+    border-left: .4rem solid oklch(44.6% 0.03 256.802);
 }

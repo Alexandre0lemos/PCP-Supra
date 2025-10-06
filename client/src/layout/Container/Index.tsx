@@ -9,7 +9,7 @@ type PropsComponent = {
 
 export const Container: React.FC<PropsComponent> = ({ children, className }) => {
   return (
-    <div className={`${className} flex`}>
+    <div className={`${className} flex pr-0.5`}>
       <AsideBar />
       <div className={`overflow-y-scroll flex-1 sm:h-[calc(100dvh-8.5dvh)] h-[78.5dvh] ${className}`}>{children}</div>
     </div>

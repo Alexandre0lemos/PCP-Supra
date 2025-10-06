@@ -245,9 +245,9 @@ function ModalForm({
   };
   return (
     <>
-      <IonButton className="mt-8" onClick={() => setMostrarModal(true)}>
+      <button className="mt-8 w-24 h-8 bg-gray-600 text-white! rounded-sm! font-semibold!" onClick={() => setMostrarModal(true)}>
         Lançar
-      </IonButton>
+      </button>
 
       
         <Modal
