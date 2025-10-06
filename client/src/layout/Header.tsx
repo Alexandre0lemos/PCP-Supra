@@ -9,7 +9,7 @@ type Props = {
 export const Header: React.FC<Props> = ({title}) => {    
     return(
         <IonHeader>
-            <IonToolbar color={'dark'} className="h-[8.5dvh] flex items-center">
+            <IonToolbar color={'dark'} className="h-[8.5dvh]  flex items-center">
                 <IonButtons className='mr-4 ml-4 pt-0.5'>
                     <IonTitle color={'light'} className="pl-3 -ml-4 cursor-pointer text-lg"
                         onClick={() => {

@@ -49,6 +49,20 @@ export const EditarLancamento: React.FC = () => {
     handleLancados();
   }, []);
 
+  if (pendentes.length <= 0) {
+    return (
+      <div className="pt-6 sm:p-0"> 
+      <Header title="Editar Lançamentos"/>
+      <Container>
+        <div className=" flex justify-center items-center h-full">
+          <h1>Nenhum lançamento pendente, verifique com a logistica</h1>
+        </div>
+      </Container>
+      <FooterBar />
+      </div>
+    )
+  }
+
   return (
     <div className="pt-6 sm:pt-0">
       <Header title="Editar Lançamentos" />

@@ -2,9 +2,8 @@ import pandas as pd
 import os
 from datetime import datetime, date
 
-xlsPath = "utils\\ordens_aberta.xls"
 dbMain = "db\\dbMain.db"
-xlsPath = "C:\\Users\\Supra\\Desktop\\PCP-Supra\\server\\utils\\ordens_aberta.xls"
+xlsPath = "utils\\ordens_aberta.xls"
 
 import pandas as pd
 import sqlite3

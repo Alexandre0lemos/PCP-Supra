@@ -3,6 +3,7 @@ from flask import request, redirect, url_for, abort, jsonify, sessions, session,
 import pandas as pd
 from src import dbContext, ordensAberta
 import json
+import os
 
 secret_key = "Al010306*"
 
@@ -84,7 +85,7 @@ def ordensAbertas():
 def atualizar_ordens_aberta():
     file = request.files.get("file")
     
-    file.save("C:\\Users\\Supra\\Desktop\\PCP-Supra\\server\\utils\\ordens_aberta.xls")
+    file.save(os.path.join("utils", "ordens_aberta.xls"))
     response = ordensAberta.puxar_ordens_aberta()
     
     if (response):
