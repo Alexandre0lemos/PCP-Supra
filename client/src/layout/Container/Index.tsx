@@ -13,7 +13,7 @@ export const Container: React.FC<PropsComponent> = ({ children, className }) => 
     <div className={`${className} flex`}>
       <AsideBar />
       
-      <div className={`overflow-y-scroll flex-1 sm:h-[calc(100dvh-8.5dvh)] h-[calc(100dvh-8.5dvh-2rem)] ${className}`}>
+      <div className={`overflow-y-scroll flex-1 sm:h-[calc(100dvh)] h-[calc(100dvh-8.5dvh-2rem)] ${className}`}>
         <Header/>
         {children}
         </div>
