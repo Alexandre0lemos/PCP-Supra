@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { api } from "../../urlApiConfig";
-import { Header } from "../../layout/Header";
 import { ModalEditarLancamento } from "../../components/ModalEditarLancamento/ModalEditarLancamento";
 import { FooterBar } from "../../layout/FooterBar";
 import { Container } from "../../layout/Container/Index";
@@ -52,7 +51,6 @@ export const EditarLancamento: React.FC = () => {
   if (pendentes.length <= 0) {
     return (
       <div className="pt-6 sm:p-0"> 
-      <Header title="Editar Lançamentos"/>
       <Container>
         <div className=" flex justify-center items-center h-full">
           <h1>Nenhum lançamento pendente, verifique com a logistica</h1>
@@ -65,7 +63,6 @@ export const EditarLancamento: React.FC = () => {
 
   return (
     <div className="pt-6 sm:pt-0">
-      <Header title="Editar Lançamentos" />
       <Container>
         <div className="flex flex-col text-center gap-2 pt-2">
           {pendentes.map((pendente) => (

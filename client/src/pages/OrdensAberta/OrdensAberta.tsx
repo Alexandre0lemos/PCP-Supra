@@ -4,7 +4,6 @@ import {
   IonAlert,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState, useRef, ChangeEvent } from "react";
-import { Header } from "../../layout/Header";
 import { ArrowDown } from "lucide-react";
 import ModalForm from "../../components/ModalForm/ModalForm";
 import { SearchInput } from "../../components/Search/SearchInput";
@@ -104,7 +103,6 @@ const OrdensAberta: React.FC = () => {
   if (loading) {
     return (
       <div className="pt-6 sm:pt-0 backdrop-blur-[1px]">
-      <Header />
       <Container>
           <div className="flex flex-col items-center justify-center h-full gap-4">
             <IonSpinner
@@ -121,7 +119,6 @@ const OrdensAberta: React.FC = () => {
 
   return (
     <div className="pt-6 sm:p-0">
-      <Header title="Ordens em aberta"/>
       <Container>
         <div
           className="mx-2 h-10 justify-between pt-2 items-center flex flex-row gap-3"
@@ -131,7 +128,7 @@ const OrdensAberta: React.FC = () => {
             <select
               value={secaoSelecionada}
               onChange={(e) => setSecaoSelecionada(e.target.value)}
-              className="w-full outline-none pr-1"
+              className="w-full outline-none pr-1 text-gray-700! font-semibold!"
             >
               <option value="">GERAL</option>
               {secoes.map((secao) => (

@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import "./styles.css";
 import { AsideBar } from "../AsideBar";
+import { Header } from "../Header";
 
 type PropsComponent = {
   children: ReactNode;
@@ -9,9 +10,13 @@ type PropsComponent = {
 
 export const Container: React.FC<PropsComponent> = ({ children, className }) => {
   return (
-    <div className={`${className} flex pr-0.5`}>
+    <div className={`${className} flex`}>
       <AsideBar />
-      <div className={`overflow-y-scroll flex-1 sm:h-[calc(100dvh-8.5dvh)] h-[78.5dvh] ${className}`}>{children}</div>
+      
+      <div className={`overflow-y-scroll flex-1 sm:h-[calc(100dvh)] h-[calc(100dvh-8.5dvh-2rem)] ${className}`}>
+        <Header/>
+        {children}
+        </div>
     </div>
   );
 };

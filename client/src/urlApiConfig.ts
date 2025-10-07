@@ -1,4 +1,4 @@
-const apiConfig = {
+export const apiConfig = {
     protocol: "http",
     url: "192.168.0.111",
     port: 8080
